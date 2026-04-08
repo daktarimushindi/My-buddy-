@@ -1,0 +1,126 @@
+index.html<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnHub - Interactive Online Learning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+    body { background: #f5f7fa; color: #333; line-height: 1.6; }
+    header { background: #4f46e5; color: #fff; text-align: center; padding: 20px 0; }
+    nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    .hero { background: #6366f1; color: #fff; padding: 80px 20px; text-align: center; }
+    .btn { background: #facc15; color: #333; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; margin: 5px; display:inline-block; }
+    .section { padding: 60px 20px; max-width: 1200px; margin: auto; }
+    .courses { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .course { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .course h4 { margin-bottom: 10px; }
+    .quiz, .forum { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    .forum input, .forum textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    footer { background: #4f46e5; color: #fff; text-align: center; padding: 20px; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LearnHub</h1>
+  <nav>
+    <a href="#courses">Courses</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#forum">Forum</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Learn Anytime, Anywhere</h2>
+  <p>Interactive courses, quizzes, and discussion forums to enhance learning.</p>
+  <a href="#courses" class="btn">Explore Courses</a>
+</section>
+
+<section id="courses" class="section">
+  <h3>Featured Courses</h3>
+  <div class="courses">
+    <div class="course">
+      <h4>Intro to Web Development</h4>
+      <p>Learn HTML, CSS, and JavaScript from scratch.</p>
+      <button class="btn complete-btn">Mark as Completed</button>
+      <p class="status"></p>
+    </div>
+    <div class="course">
+      <h4>Digital Marketing Basics</h4>
+      <p>Understand SEO, social media, and online campaigns.</p>
+      <button class="btn complete-btn">Mark as Completed</button>
+      <p class="status"></p>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" class="section">
+  <h3>Quick Quiz</h3>
+  <div class="quiz">
+    <p>1. What does HTML stand for?</p>
+    <button class="btn quiz-btn" data-answer="correct">HyperText Markup Language</button>
+    <button class="btn quiz-btn" data-answer="wrong">Home Tool Markup Language</button>
+    <button class="btn quiz-btn" data-answer="wrong">Hyperlinks Text Management</button>
+    <p class="quiz-result"></p>
+  </div>
+</section>
+
+<section id="forum" class="section">
+  <h3>Discussion Forum</h3>
+  <div class="forum">
+    <input type="text" id="username" placeholder="Your Name">
+    <textarea id="comment" placeholder="Write a comment..."></textarea>
+    <button class="btn" id="post-comment">Post Comment</button>
+    <div id="comments-section"></div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 LearnHub. All Rights Reserved.</p>
+</footer>
+
+<script>
+  // Progress Tracking
+  const completeButtons = document.querySelectorAll('.complete-btn');
+  completeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.nextElementSibling.textContent = '✅ Completed!';
+      btn.disabled = true;
+    });
+  });
+
+  // Quiz
+  const quizButtons = document.querySelectorAll('.quiz-btn');
+  const quizResult = document.querySelector('.quiz-result');
+  quizButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if(btn.dataset.answer === 'correct') {
+        quizResult.textContent = '🎉 Correct Answer!';
+      } else {
+        quizResult.textContent = '❌ Wrong Answer. Try Again!';
+      }
+    });
+  });
+
+  // Forum
+  const postBtn = document.getElementById('post-comment');
+  const commentsSection = document.getElementById('comments-section');
+  postBtn.addEventListener('click', () => {
+    const username = document.getElementById('username').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+    if(username && comment){
+      const commentEl = document.createElement('p');
+      commentEl.innerHTML = `<strong>${username}:</strong> ${comment}`;
+      commentsSection.appendChild(commentEl);
+      document.getElementById('username').value = '';
+      document.getElementById('comment').value = '';
+    } else {
+      alert('Please enter your name and comment.');
+    }
+  });
+</script>
+
+</body>
+</html>
